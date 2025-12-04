@@ -1,0 +1,115 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+
+.popup-container {
+  padding: 10px;
+}
+
+.popup-top {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.popup-img {
+  width: 90px;
+  height: 90px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.popup-info h3 {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  font-size: 18px;
+}
+
+.jumlah-wrap {
+  margin-top: 10px;
+}
+
+.jumlah-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 5px;
+}
+
+.btn-jumlah {
+  width: 32px;
+  height: 32px;
+  font-size: 20px;
+  border: none;
+  background: #ffc107;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-jumlah:hover {
+  background: #e0a800;
+}
+
+.jumlah-angka {
+  font-size: 18px;
+  min-width: 25px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.variasi-box {
+  margin-top: 12px;
+}
+
+.variasi-pilihan {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 5px;
+}
+
+.variasi-item {
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background: whitesmoke;
+  cursor: pointer;
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  white-space: nowrap;
+  transition: 0.2s;
+  user-select: none;
+}
+
+.variasi-item.active {
+  background-color: #f3ac40;
+  border-color: #ffc107;
+  color: #0006;
+  opacity: 1 !important;
+}
+
+.variasi-item.inactive {
+  opacity: 0.4;
+}
+
+.popup-form label {
+  font-weight: 600;
+  margin-bottom: 3px;
+  display: block;
+}
+
+.popup-form input,
+.popup-form textarea {
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+}
+
+.popup-form textarea {
+  height: 70px;
+  resize: none;
+}

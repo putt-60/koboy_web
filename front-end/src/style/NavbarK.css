@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Doto:wght@100..900&family=Kode+Mono:wght@400..700&family=Press+Start+2P&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Exo:ital,wght@0,100..900;1,100..900&display=swap');
+
+/* NAVBAR */
+.custom-navbar {
+  background-color: #00000066;
+  backdrop-filter: blur(6px);
+  width: 100%;
+  /* position: fixed;  <-- SUDAH DIHAPUS */
+  top: 0;
+  left: 0;
+  z-index: 999;
+  transition: background-color 0.3s ease;
+}
+
+.brand-text {
+  color: whitesmoke;
+  font-family: "Kode Mono", monospace;
+  font-weight: bold;
+  letter-spacing: 2px;
+  font-size: 1.4rem;
+}
+
+.navbar-nav {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  margin: 0;
+  padding: 0;
+}
+
+.contact-links a {
+  font-family: "Exo", sans-serif;
+}
+
+.popup-h2 {
+  font-family: "Kode Mono", monospace;
+}
+
+.navbar-nav li a {
+  font-family: "Exo", sans-serif;
+  text-decoration: none;
+  color: whitesmoke;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+button {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: "Exo", sans-serif;
+  color: whitesmoke;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  font-size: 1rem;
+  padding: 6px 10px;
+}
+
+button:hover {
+  color: #ffc107;
+}
+
+.navbar-nav li a:hover {
+  color: #ffc107;
+}
+
+/* Burger */
+.burger-toggle {
+  border: 1px solid whitesmoke;
+  padding: 5px;
+  border-radius: 4px;
+}
+
+.navbar-toggler-icon {
+  filter: invert(1);
+}
+
+/* Banner */
+.banner-img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+/* Media fix */
+@media (max-width: 1px) {
+  #intro {
+    background-position: top;
+    min-height: 100vh;
+  }
+}
