@@ -33,7 +33,7 @@ function Product({ menu }) {
       jumlah,
       variasi: selectedVariasi,
       note,
-      
+
       // ⬇ Tambahkan category supaya path gambar tidak error
       category: menu.category
     };
@@ -49,6 +49,7 @@ function Product({ menu }) {
 
   return (
     <>
+    <h1>kontol hitam</h1>
       {/* Kartu Produk */}
       <Col xs={6} sm={6} md={4} lg={3} className="mb-4">
         <Card className="shadow-sm h-100 product-card">
@@ -126,9 +127,8 @@ function Product({ menu }) {
                       menu.category.pilihan.map((item, i) => (
                         <span
                           key={i}
-                          className={`variasi-item ${
-                            selectedVariasi === item ? "active" : ""
-                          }`}
+                          className={`variasi-item ${selectedVariasi === item ? "active" : ""
+                            }`}
                           onClick={() => setSelectedVariasi(item)}
                         >
                           {item}
