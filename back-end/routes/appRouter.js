@@ -11,20 +11,21 @@ router.get('/data', (req, res) => {
 })
 
 router.get('/products', (req, res) => {
-    db.query(`select * from ${products}`, (err, result) => {
+    const sqlQuery = `SELECT 
+    p.id,
+    p.name,
+    p.price,
+    p.pictures,
+    GROUP_CONCAT(v.name) AS variants 
+    FROM products p 
+    LEFT JOIN variants v 
+    ON p.id = v.product_id 
+    GROUP BY p.id;
+`
+    db.query(sqlQuery, (err, result) => {
         res.json(result)
     })
 })
-
-
-
-
-
-
-
-
-
-
 
 
 

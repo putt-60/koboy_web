@@ -27,15 +27,15 @@ function Product({ menu }) {
   const handleAddToCart = () => {
     const order = {
       id: menu.id,
-      nama: menu.nama,
-      harga: menu.harga,
-      gambar: menu.gambar,
+      name: menu.name,
+      price: menu.price,
+      pictures: menu.pictures,
       jumlah,
-      variasi: selectedVariasi,
+      variants: selectedVariasi,
       note,
 
-      // ⬇ Tambahkan category supaya path gambar tidak error
-      category: menu.category
+      // ⬇ Tambahkan variants supaya path gambar tidak error
+      variants: menu.variants
     };
 
     const existing = JSON.parse(localStorage.getItem("keranjang")) || [];
@@ -46,27 +46,27 @@ function Product({ menu }) {
     setShowModal(false);
     navigate("/keranjang");
   };
+// src={`/assets/makanan/${encodeURIComponent(menu.pictures)}`}
 
   return (
     <>
-    <h1>kontol hitam</h1>
       {/* Kartu Produk */}
       <Col xs={6} sm={6} md={4} lg={3} className="mb-4">
         <Card className="shadow-sm h-100 product-card">
           <Card.Img
             variant="top"
-            src={`/assets/makanan/${menu.gambar}`}
-            alt={menu.nama}
+            src={`/assets/makanan/${encodeURIComponent(menu.pictures)}`}
+            alt={menu.name}
             className="product-img"
           />
 
           <Card.Body className="d-flex flex-column justify-content-between">
             <div>
               <Card.Title className="fw-semibold text-center text-disini">
-                {menu.nama}
+                {menu.name}
               </Card.Title>
               <Card.Text className="text-center text-muted harga-disini">
-                Rp. {menu.harga.toLocaleString("id-ID")}
+                Rp. {menu.price.toLocaleString("id-ID")}
               </Card.Text>
             </div>
 
@@ -88,14 +88,14 @@ function Product({ menu }) {
 
             <div className="popup-top">
               <img
-                src={`/assets/makanan/${menu.gambar}`}
-                alt={menu.nama}
+                src={`/assets/makanan/${encodeURIComponent(menu.pictures)}`}
+                alt={menu.name}
                 className="popup-img"
               />
 
               <div className="popup-info">
-                <h3>{menu.nama}</h3>
-                <p>Harga: Rp {menu.harga.toLocaleString("id-ID")}</p>
+                <h3>{menu.name}</h3>
+                <p>price: Rp {menu.price.toLocaleString("id-ID")}</p>
 
                 {/* Jumlah */}
                 <div className="jumlah-wrap">
@@ -123,8 +123,8 @@ function Product({ menu }) {
                 <div className="variasi-box">
                   <label>Pilihan:</label>
                   <div className="variasi-pilihan">
-                    {menu.category?.pilihan?.length > 0 ? (
-                      menu.category.pilihan.map((item, i) => (
+                    {menu.variants?.pilihan?.length > 0 ? (
+                      menu.variants.pilihan.map((item, i) => (
                         <span
                           key={i}
                           className={`variasi-item ${selectedVariasi === item ? "active" : ""

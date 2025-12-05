@@ -4,6 +4,11 @@ import ProductComponent from "../compont/Product";
 import { API_URL } from "../utils/constant";
 import axios from "axios";
 
+const getProducts = 'http://localhost:3000/get/products'
+
+// api untuk post pesanan: 
+// api data products: http://localhost:3000/get/products
+
 export default class Menu extends Component {
   state = {
     products: [],
@@ -11,7 +16,7 @@ export default class Menu extends Component {
 
   componentDidMount() {
     axios
-      .get(`${API_URL}products`)
+      .get(`http://localhost:3000/get/products`)
       .then((res) => {
         this.setState({ products: res.data });
       })
@@ -25,7 +30,7 @@ export default class Menu extends Component {
 
     return (
       <Container fluid className="p-0">
-        <div className="duct">
+        <div className="duct">22
           <Row className="m-0 p-4">
             <Col>
               <h1>

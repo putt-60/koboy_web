@@ -38,16 +38,16 @@
 
 const express = require('express')
 const app = express()
+const cors = require('cors')
 
+app.use(cors())
+app.use(express.json())
+
+const authRouter = require('./routes/auth')
 const appRouter = require('./routes/appRouter')
+
 app.use('/get', appRouter)
-
-
-
-
-
-
-
+app.use('/auth', authRouter)
 
 
 
