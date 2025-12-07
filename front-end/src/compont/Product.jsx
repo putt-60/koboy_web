@@ -88,7 +88,7 @@ function Product({ menu }) {
 
             <div className="popup-top">
               <img
-                src={`/assets/makanan/${encodeURIComponent(menu.pictures)}`}
+                src={`/assets/makanan/${(menu.pictures)}`}
                 alt={menu.name}
                 className="popup-img"
               />
@@ -123,8 +123,8 @@ function Product({ menu }) {
                 <div className="variasi-box">
                   <label>Pilihan:</label>
                   <div className="variasi-pilihan">
-                    {menu.variants?.pilihan?.length > 0 ? (
-                      menu.variants.pilihan.map((item, i) => (
+                    {menu.variants?.length > 0 ? (
+                      menu.variants.map((item, i) => (
                         <span
                           key={i}
                           className={`variasi-item ${selectedVariasi === item ? "active" : ""
