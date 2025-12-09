@@ -3,6 +3,13 @@ const db = require('../dbConnection')
 const products = 'products'
 const users = 'users'
 
+///////////////////////////////////////////////////////////////////////////////////
+router.get('/datas', (req, res) => {
+    db.query(`select * from users`, (err, result) => {
+        res.json(result)
+    })
+})
+///////////////////////////////////////////////////////////////////////////////////
 
 router.get('/products', (req, res) => {
     const sqlQuery = `
@@ -38,6 +45,14 @@ router.get('/products', (req, res) => {
     });
 });
 
+router.delete('/delete', (req, res) => {
+    const id = req.body.id
+    const sqlQuery = `delete from products whrere id = ?`
+
+    db.query(sqlQuery, [id], (err, result) => {
+        res.json()
+    })
+})
 
 
 
