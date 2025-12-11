@@ -22,7 +22,7 @@ app.get('/', (req, res) => {
 });
 
 
-/// aku sayang fatur
+/// yaya
 
 
 // Jalankan server (hanya sekali)
