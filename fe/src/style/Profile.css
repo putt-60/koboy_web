@@ -58,3 +58,15 @@
 .logout-btn:hover {
   background: #e04343;
 }
+
+.btn-save {
+  width: 100%;
+  padding: 10px;
+  margin-top: 30px;
+  border: none;
+  background: #ff4d4d;
+  color: white;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+}

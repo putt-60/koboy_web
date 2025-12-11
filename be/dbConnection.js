@@ -2,6 +2,7 @@ const mysql = require('mysql')
 const db = mysql.createPool({
     host: 'localhost',
     user: 'root',
+
     password: '12345',
     database: 'koboy_database',
     // port: ''
@@ -18,3 +19,4 @@ db.getConnection((err, connection) => {
 
 
 module.exports = db;
+
