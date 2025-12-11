@@ -51,6 +51,8 @@ app.use('/auth', authRouter)
 
 // ini dari branch
 
+// halo sayangggggggg
+
 app.get('/', (req, res) => {
     res.send('mada faka')
 })
