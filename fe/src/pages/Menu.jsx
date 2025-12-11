@@ -4,7 +4,7 @@ import ProductComponent from "../compont/Product";
 import axios from "axios";
 
 // Endpoint JSON Server
-const getProducts = "http://localhost:3000/products";
+const getProducts = "http://localhost:3000/get/products";
 
 export default class Menu extends Component {
   state = {

@@ -2,11 +2,21 @@ const mysql = require('mysql')
 const db = mysql.createPool({
     host: 'localhost',
     user: 'root',
-    password: '',
-    database: 'koboy',
-    port: '3307'
+
+    password: '12345',
+    database: 'koboy_database',
+    // port: ''
 })
 
-module.exports = db
+db.getConnection((err, connection) => {
+    if (err) {
+        console.log("MYSQL ERROR:", err);
+    } else {
+        console.log("MYSQL CONNECTED");
+        connection.release();
+    }
+});
 
-// kanjut
+
+module.exports = db;
+

@@ -6,7 +6,7 @@
       "nama": "Nasi Ayam Krispy",
       "harga": 18750,
       "is_ready": true,
-      "gambar": "Ayam Crispy + Nasi.png" 
+      "gambar": "Ayam Crispy Nasi.png" 
     },
     {
       "id": 2,
@@ -38,7 +38,7 @@
       "nama": "Nasi Ayam Celup",
       "harga": 25000,
       "is_ready": true,
-      "gambar": "Ayam Krispy Saus Celup + Nasi.png",
+      "gambar": "Ayam Krispy Saus Celup Nasi.png",
       "pilihan": ["BBQ","keju","Blakpepper","BBQ Spicy","Hot Spicy","Teriyaki","Extra Pedas","Hot Lava"]
     },
     {
