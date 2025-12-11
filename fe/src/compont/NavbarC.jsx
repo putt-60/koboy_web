@@ -16,42 +16,39 @@ function NavbarC() {
   const navigate = useNavigate();
 
   const readAuth = () => {
-    const loginStatus = localStorage.getItem("isLoggedIn") === "true";
+    const loginStatus = localStorage.getItem("isLoggedIn") === "true" || !!localStorage.getItem("token");
     const avatarUrl = localStorage.getItem("userAvatar") || null;
     return { loginStatus, avatarUrl };
   };
 
   useEffect(() => {
-    // initial read
     const { loginStatus, avatarUrl } = readAuth();
     setIsLoggedIn(loginStatus);
     setAvatar(avatarUrl);
 
-    // handler untuk event storage (ter-trigger ketika localStorage diubah di TAB LAIN)
-    const onStorage = (e) => {
+    const onStorage = () => {
       const { loginStatus, avatarUrl } = readAuth();
       setIsLoggedIn(loginStatus);
       setAvatar(avatarUrl);
     };
 
-    // handler untuk event kustom login/logout (ter-trigger di TAB SAMA)
-    const onLogin = () => {
-      const { loginStatus, avatarUrl } = readAuth();
-      setIsLoggedIn(loginStatus);
+    const onProfileUpdate = () => {
+      const { avatarUrl } = readAuth();
       setAvatar(avatarUrl);
     };
+
     const onLogout = () => {
       setIsLoggedIn(false);
       setAvatar(null);
     };
 
     window.addEventListener("storage", onStorage);
-    window.addEventListener("login", onLogin);
+    window.addEventListener("profileUpdate", onProfileUpdate);
     window.addEventListener("logout", onLogout);
 
     return () => {
       window.removeEventListener("storage", onStorage);
-      window.removeEventListener("login", onLogin);
+      window.removeEventListener("profileUpdate", onProfileUpdate);
       window.removeEventListener("logout", onLogout);
     };
   }, []);
@@ -82,7 +79,6 @@ function NavbarC() {
 
               <li className="logintampil">
                 {isLoggedIn ? (
-                  // gunakan foto avatar jika ada, else icon User
                   avatar ? (
                     <img
                       src={avatar}
@@ -131,3 +127,4 @@ function NavbarC() {
 }
 
 export default NavbarC;
+
