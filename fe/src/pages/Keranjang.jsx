@@ -149,7 +149,7 @@ const Keranjang = () => {
             >
               {/* FIX GAMBAR DI SINI */}
               <img
-                src={`/assets/${item.gambar}`}   // <= sudah fixed
+                src={`/assets/makanan/${item.gambar}`}   // <= sudah fixed
                 alt={item.nama}
                 className="keranjang-img"
               />

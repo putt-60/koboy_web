@@ -10,7 +10,7 @@ function Register() {
   const navigate = useNavigate();
 
   const handleRegister = () => {
-    navigate("/verify");
+    navigate("/login");
   };
 
   const isFormValid = username && email && password;

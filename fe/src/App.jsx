@@ -10,7 +10,6 @@ import Keranjang from "./pages/Keranjang";
 import History from "./pages/History";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import Verify from "./pages/Verify";
 import Profile from "./pages/Profile";
 import { API_URL } from "./utils/constant";
 import axios from "axios";
@@ -120,14 +119,6 @@ export default class App extends Component {
           }
         />
 
-        <Route
-          path="/verify"
-          element={
-            <AuthLayout>
-              <Verify />
-            </AuthLayout>
-          }
-        />
 
         <Route
           path="/profile"
