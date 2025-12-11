@@ -49,7 +49,7 @@ const appRouter = require('./routes/appRouter')
 app.use('/get', appRouter)
 app.use('/auth', authRouter)
 
-
+// ini dari branch
 
 app.get('/', (req, res) => {
     res.send('mada faka')
