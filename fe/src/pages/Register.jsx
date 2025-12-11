@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 import "../style/Register.css";
 
 function Register() {
@@ -9,8 +10,30 @@ function Register() {
 
   const navigate = useNavigate();
 
-  const handleRegister = () => {
-    navigate("/login");
+  const handleRegister = async () => {
+    console.log("Username:", username);
+    console.log("Email:", email);
+    console.log("Password:", password);
+
+    try {
+      const response = await axios.post("http://localhost:3000/auth/register", {
+        username,
+        email,
+        password,
+      });
+
+      alert(response.data.message);
+      navigate("/login");
+
+    } catch (error) {
+      console.log(error);
+
+      if (error.response) {
+        alert(error.response.data.message);
+      } else {
+        alert("Terjadi kesalahan server");
+      }
+    }
   };
 
   const isFormValid = username && email && password;
