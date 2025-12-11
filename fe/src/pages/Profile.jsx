@@ -1,88 +1,120 @@
 // src/pages/Profile.jsx
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import "../style/Profile.css";
-
-
-
-const nama = 'putra'
 
 export default function Profile() {
   const navigate = useNavigate();
+  const API_GET = "http://localhost:3000/get/data";
+  // asumsi update: PUT http://localhost:3000/get/data/:id
 
-  // ambil data awal dari localStorage (fallback default)
-  const storedName = localStorage.getItem("userName") || "kqldb";  ////////////////////// Saat halaman Profile dibuka → Ambil data user dari backend (GET) 
-  const storedAvatar = localStorage.getItem("userAvatar") || "/default.jpg";
-  const storedEmail = localStorage.getItem("userEmail") || "p@domain.com";
-  const storedPassword = localStorage.getItem("userPassword") || "";
+  // ambil email login jika Anda simpan sebelumnya (opsional)
+  const storedEmail = localStorage.getItem("userEmail") || "";
 
-  const [name, setName] = useState(storedName);
+  const [id, setId] = useState(null);
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState(storedEmail);
-  const [password, setPassword] = useState(storedPassword);
-  const [avatarPreview, setAvatarPreview] = useState(storedAvatar);
-  const [fileObject, setFileObject] = useState(null);
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  // klik foto -> buka file picker
-  const handlePhotoChange = () => {
-    const input = document.getElementById("profileUpload");
-    if (input) input.click();
-  };
+  // Ambil data user dari backend saat komponen mount
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const res = await axios.get(API_GET);
+        const users = Array.isArray(res.data) ? res.data : [];
+        // cari berdasarkan email yang tersimpan; jika tidak ada, ambil user pertama
+        let found = null;
+        if (storedEmail) found = users.find((u) => u.email === storedEmail);
+        if (!found && users.length > 0) found = users[0];
 
-  // pilih file
-  const handleUpload = (e) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
+        if (found) {
+          setId(found.id || found._id || null);
+          setUsername(found.username || "");
+          setEmail(found.email || "");
+          // jangan set password dari server dalam produksi; ini contoh cepat
+          setPassword(found.password || "");
+        }
+      } catch (err) {
+        console.error("GET /get/data failed:", err);
+        // fallback: ambil dari localStorage jika tersedia
+        setUsername(localStorage.getItem("userName") || "");
+        setEmail(localStorage.getItem("userEmail") || storedEmail || "");
+        setPassword(localStorage.getItem("userPassword") || "");
+      }
+    };
 
-    // batas ukuran (fallback ~4MB)
-    const MAX = 4 * 1024 * 1024;
-    if (file.size > MAX) {
-      alert("Gambar terlalu besar. Pilih yang < ~4MB.");
+    fetchUsers();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // simpan perubahan ke backend (PUT), fallback lokal jika gagal
+  const handleSave = async () => {
+    if (!username || !email) {
+      alert("Username dan email harus diisi.");
       return;
     }
 
-    setFileObject(file);
-    const reader = new FileReader();
-    reader.onload = (ev) => setAvatarPreview(ev.target.result);
-    reader.onerror = () => alert("Gagal membaca file. Coba lagi.");
-    reader.readAsDataURL(file);
-  };
-
-  // helper untuk konversi file -> dataUrl
-  const fileToDataUrl = (file) =>
-    new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = (e) => resolve(e.target.result);
-      reader.onerror = (e) => reject(e);
-      reader.readAsDataURL(file);
-    });
-
-  const handleSave = async () => {
+    setLoading(true);
     try {
-      localStorage.setItem("userName", name);
-      localStorage.setItem("userEmail", email); /////////////////////////////////////////Saat klik tombol SIMPAN → Update data user ke backend (PUT / PATCH)
-      // NOTE: menyimpan password di localStorage tidak aman untuk produksi.
-      localStorage.setItem("userPassword", password);
-
-      if (fileObject) {
-        const dataUrl = await fileToDataUrl(fileObject);
-        localStorage.setItem("userAvatar", dataUrl); ////////// Saat upload foto → upload juga ke backend
-        setAvatarPreview(dataUrl);
-        setFileObject(null);
+      // jika id tersedia, lakukan PUT langsung
+      if (id) {
+        const updateUrl = `${API_GET}/${id}`;
+        const payload = { username, email, password };
+        console.log("PUT", updateUrl, payload);
+        await axios.put(updateUrl, payload);
+        // sync lokal untuk tampilan cepat
+        localStorage.setItem("userName", username);
+        localStorage.setItem("userEmail", email);
+        if (password) localStorage.setItem("userPassword", password);
+        window.dispatchEvent(new Event("profileUpdate"));
+        alert("Profil berhasil diperbarui di server.");
       } else {
-        if (avatarPreview && avatarPreview.startsWith("data:")) {
-          localStorage.setItem("userAvatar", avatarPreview);
+        // jika id tidak ada, coba cari user dahulu lalu PUT, atau simpan lokal
+        const res = await axios.get(API_GET);
+        const users = Array.isArray(res.data) ? res.data : [];
+        const found = users.find((u) => u.email === email || u.username === username);
+        if (found && (found.id || found._id)) {
+          const userId = found.id || found._id;
+          await axios.put(`${API_GET}/${userId}`, { username, email, password });
+          localStorage.setItem("userName", username);
+          localStorage.setItem("userEmail", email);
+          if (password) localStorage.setItem("userPassword", password);
+          window.dispatchEvent(new Event("profileUpdate"));
+          alert("Profil berhasil diperbarui di server.");
+        } else {
+          // fallback: simpan lokal
+          localStorage.setItem("userName", username);
+          localStorage.setItem("userEmail", email);
+          if (password) localStorage.setItem("userPassword", password);
+          window.dispatchEvent(new Event("profileUpdate"));
+          alert("User tidak ditemukan di server. Data disimpan lokal.");
         }
       }
-
-      window.dispatchEvent(new Event("profileUpdate"));
-      alert("Profil tersimpan.");
     } catch (err) {
-      console.error("Gagal menyimpan profil:", err);
-      alert("Gagal menyimpan profil. Cek console.");
+      console.error("Save error:", err);
+      // tampilkan detail bila ada response
+      if (err.response) {
+        console.error("Response status:", err.response.status, "data:", err.response.data);
+        alert(`Gagal menyimpan ke server: ${err.response.status}`);
+      } else {
+        alert("Gagal menyimpan ke server (cek console). Perubahan disimpan lokal.");
+      }
+      // fallback: simpan lokal
+      try {
+        localStorage.setItem("userName", username);
+        localStorage.setItem("userEmail", email);
+        if (password) localStorage.setItem("userPassword", password);
+        window.dispatchEvent(new Event("profileUpdate"));
+      } catch (e) {
+        console.error("Fallback local save failed:", e);
+      }
+    } finally {
+      setLoading(false);
     }
   };
 
-  // Logout
   const handleLogout = () => {
     localStorage.removeItem("isLoggedIn");
     localStorage.removeItem("token");
@@ -94,43 +126,16 @@ export default function Profile() {
     navigate("/");
   };
 
-  useEffect(() => {
-    const onStorage = () => {
-      setAvatarPreview(localStorage.getItem("userAvatar") || "/default.jpg");
-      setName(localStorage.getItem("userName") || "k");                    ////////////////////////////////Ini Output Sync Kalau ada perubahan dari localstorage dari tab lain
-      setEmail(localStorage.getItem("userEmail") || "p@example.com");
-      setPassword(localStorage.getItem("userPassword") || "");
-    };
-    window.addEventListener("storage", onStorage);
-    return () => window.removeEventListener("storage", onStorage);
-  }, []);
-///////////////////////////////////////Inputnya dibawah sini
   return (
     <div className="profile-container">
-      <div className="photo-wrapper" onClick={handlePhotoChange} style={{ cursor: "pointer" }}>
-        <img
-          id="profileImg"
-          src={avatarPreview}
-          alt="profile"
-          style={{ width: 120, height: 120, objectFit: "cover", borderRadius: "50%" }}
-        />
-        <input
-          type="file"
-          id="profileUpload"
-          accept="image/*"
-          style={{ display: "none" }}
-          onChange={handleUpload}
-        />
-      </div>
-
       <div className="field">
-        <label>Nama</label>
-        <input type="text" value={name} onChange={(e) => setName(e.target.value)} /> 
+        <label>Username</label>
+        <input value={username} onChange={(e) => setUsername(e.target.value)} />
       </div>
 
       <div className="field">
         <label>Email</label>
-        <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />                   
+        <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
       </div>
 
       <div className="field">
@@ -138,15 +143,12 @@ export default function Profile() {
         <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
       </div>
 
-      {/* Tombol Simpan (ditampilkan di atas tombol logout) */}
       <div style={{ display: "flex", flexDirection: "column", gap: 8, marginTop: 12 }}>
-        <button className="btn-save" onClick={handleSave}>
-          Simpan
+        <button className="logout-btn" onClick={handleSave} disabled={loading}>
+          {loading ? "Menyimpan..." : "Simpan"}
         </button>
 
-        <button className="logout-btn" onClick={handleLogout}>
-          Yakin Keluar?
-        </button>
+        <button className="logout-btn" onClick={handleLogout}>Yakin Keluar?</button>
       </div>
     </div>
   );

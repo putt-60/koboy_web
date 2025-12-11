@@ -22,29 +22,41 @@ function Login() {
         password,
       });
 
-      console.log("LOGIN RESPONSE:", response.data);
+      const { token, user } = response.data; 
+      // asumsi response.data = { token: "...", user: { id, username, email, avatar } }
 
-      // Simpan token dan data user
-      localStorage.setItem("token", response.data.token);
-      localStorage.setItem("user", JSON.stringify(response.data.user));
+      // Simpan token dan data user yang berguna
+      localStorage.setItem("token", token);
       localStorage.setItem("isLoggedIn", "true");
 
-      // Avatar default
-      localStorage.setItem("userAvatar", "/assets/profile/default.png");
+      if (user) {
+        // simpan user object sekaligus fields yang sering dipakai
+        localStorage.setItem("user", JSON.stringify(user));
+        if (user.id) localStorage.setItem("userId", String(user.id));
+        if (user.email) localStorage.setItem("userEmail", user.email);
+        if (user.username) localStorage.setItem("userName", user.username);
+        if (user.avatar) {
+          localStorage.setItem("userAvatar", user.avatar);
+        } else {
+          localStorage.setItem("userAvatar", "/assets/profile/default.png");
+        }
+      } else {
+        // fallback jika backend tidak mengirim user object
+        localStorage.setItem("userEmail", email);
+        localStorage.setItem("userAvatar", "/assets/profile/default.png");
+      }
 
-      // Trigger navbar update
+      // beri tahu komponen lain (Navbar, Profile) supaya refetch / re-render
       window.dispatchEvent(new Event("login"));
 
       alert("Login berhasil!");
       navigate("/");
-
     } catch (error) {
-      console.log(error);
-
-      if (error.response) {
+      console.error("Login error:", error);
+      if (error.response && error.response.data && error.response.data.message) {
         alert(error.response.data.message);
       } else {
-        alert("Terjadi kesalahan server");
+        alert("Terjadi kesalahan saat login. Periksa server / koneksi.");
       }
     }
   };
