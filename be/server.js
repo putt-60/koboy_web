@@ -21,6 +21,10 @@ app.get('/', (req, res) => {
     res.send('mada faka');
 });
 
+
+/// aku sayang fatur
+
+
 // Jalankan server (hanya sekali)
 app.listen(3000, () => {
     console.log(`Server berjalan di http://localhost:3000`);
