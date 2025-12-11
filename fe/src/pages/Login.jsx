@@ -1,32 +1,52 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 import "../style/Login.css";
 
 function Login() {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
-    // Validasi sederhana (bisa diganti axios API)
-    if (username === "" || password === "") {
-      alert("Username dan password wajib diisi!");
+    if (!email || !password) {
+      alert("Email dan password wajib diisi!");
       return;
     }
 
-    // Simpan status login
-    localStorage.setItem("isLoggedIn", "true");
+    try {
+      const response = await axios.post("http://localhost:3000/auth/login", {
+        email,
+        password,
+      });
 
-    // Anda bisa simpan avatar default
-    localStorage.setItem("userAvatar", "/assets/profile/default.png");
+      console.log("LOGIN RESPONSE:", response.data);
 
-    // Beri tahu Navbar agar update
-    window.dispatchEvent(new Event("login"));
+      // Simpan token dan data user
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("user", JSON.stringify(response.data.user));
+      localStorage.setItem("isLoggedIn", "true");
 
-    // Arahkan ke home
-    navigate("/");
+      // Avatar default
+      localStorage.setItem("userAvatar", "/assets/profile/default.png");
+
+      // Trigger navbar update
+      window.dispatchEvent(new Event("login"));
+
+      alert("Login berhasil!");
+      navigate("/");
+
+    } catch (error) {
+      console.log(error);
+
+      if (error.response) {
+        alert(error.response.data.message);
+      } else {
+        alert("Terjadi kesalahan server");
+      }
+    }
   };
 
   return (
@@ -34,13 +54,13 @@ function Login() {
       <div className="login-card">
         <h2 className="title">Login</h2>
 
-        <label className="label">Username</label>
+        <label className="label">Email</label>
         <input
           type="text"
           className="input"
-          placeholder="Masukkan username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          placeholder="Masukkan email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
 
         <label className="label">Password</label>
