@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+.login-container {
+  font-family: "Poppins", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: grey;
+}
+
+.login-card {
+  background: whitesmoke;
+  width: 370px;
+  padding: 25px 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  text-align: center;
+}
+.title {
+  font-size: 26px;
+  font-weight: bold;
+  margin-bottom: 22px;
+}
+
+.label {
+  display: block;
+  margin-top: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: left;
+}
+
+/* Input */
+.input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border-radius: 8px;
+  border: 1px solid whitesmoke;
+  font-size: 14px;
+  transition: border 0.3s;
+}
+
+.input:focus {
+  outline: none;
+  border: 1px solid #d2691e;
+}
+
+.btn-login {
+  width: 100%;
+  padding: 10px;
+  background: #d2691e;
+  margin-top: 18px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.btn-login a {
+  text-decoration: none;
+  color: whitesmoke;
+  display: block;
+}
+
+.btn-login:hover {
+  background: #b35c17;
+}
+
+.signup-text {
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.signup-link {
+  margin-left: 5px;
+  color: #3b82f6;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.signup-link:hover {
+  text-decoration: underline;
+}

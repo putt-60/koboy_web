@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+
+.register-container {
+  display: flex;
+  font-family: "Poppins", sans-serif;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: grey;
+}
+
+.register-card {
+  background: whitesmoke;
+  width: 370px;
+  padding: 25px 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 22px;
+  font-size: 26px;
+  font-weight: bold;
+}
+
+.label {
+  margin-top: 12px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border-radius: 8px;
+  border: 1px solid #cdcdcd;
+  font-size: 14px;
+  transition: border 0.3s;
+}
+
+.input:focus {
+  outline: none;
+  border: 1px solid ;
+}
+
+.register-btn {
+  width: 100%;
+  padding: 10px;
+  margin-top: 18px;
+  background: #d2691e;
+  border: none;
+  color: white;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.register-btn:hover:not(:disabled) {
+  background: #b35c17;
+}
+
+.register-btn:disabled {
+  background-color: #cdcdcd;
+  cursor: not-allowed;
+  color: whitesmoke;
+}
+
+.login-link {
+  margin-top: 15px;
+  text-align: center;
+  font-size: 14px;
+}

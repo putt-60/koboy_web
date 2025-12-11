@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+
+.verify-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Poppins", sans-serif;
+  height: 100vh;
+  background: grey;
+}
+
+.verify-card {
+  background: whitesmoke;
+  width: 400px;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.verify-title {
+  font-size: 26px;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+.verify-text {
+  font-size: 15px;
+  margin-bottom: 22px;
+  color: #444;
+  line-height: 1.4;
+}
+
+.otp-input-group {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.otp-input {
+  width: 50px;
+  height: 55px;
+  font-size: 22px;
+  text-align: center;
+  border-radius: 8px;
+  border: 1px solid #cdcdcd;
+}
+
+.otp-input:focus {
+  outline: none;
+  border: 1px solid #4f46e5;
+}
+
+.btn-verify {
+  width: 100%;
+  padding: 10px;
+  background: #d2691e;
+  border: none;
+  color: white;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.btn-verify:hover {
+  background: #b35c17;
+}
+
+.resend {
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.resend-link {
+  color: #4f46e5;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn-back-login {
+  display: block;
+  margin-top: 18px;
+  padding: 10px;
+  background: #d2691e;
+  color: whitesmoke;
+  text-decoration: none;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.btn-back-login:hover {
+  background: #b35c17;
+}

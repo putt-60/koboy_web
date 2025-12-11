@@ -1,0 +1,55 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "kode": "K-01",
+      "nama": "Nasi Ayam Krispy",
+      "harga": 18750,
+      "is_ready": true,
+      "gambar": "Ayam Crispy + Nasi.png" 
+    },
+    {
+      "id": 2,
+      "kode": "K-02",
+      "nama": "Ayam Krispy Geprek Nasi",
+      "harga": 25000,
+      "is_ready": true,
+      "gambar": "Ayam Crispy Geprek Nasi.png"
+    },
+    {
+      "id": 3,
+      "kode": "K-03",
+      "nama": "Ayam Geprek",
+      "harga": 18750,
+      "is_ready": true,
+      "gambar": "Ayam Crispy Geprek.png"
+    },
+    {
+      "id": 4,
+      "kode": "K-04",
+      "nama": "Ayam Krispy",
+      "harga": 12500,
+      "is_ready": true,
+      "gambar": "Ayam Crispy.png"
+    },
+    {
+      "id": 5,
+      "kode": "K-05",
+      "nama": "Nasi Ayam Celup",
+      "harga": 25000,
+      "is_ready": true,
+      "gambar": "Ayam Krispy Saus Celup + Nasi.png",
+      "pilihan": ["BBQ","keju","Blakpepper","BBQ Spicy","Hot Spicy","Teriyaki","Extra Pedas","Hot Lava"]
+    },
+    {
+      "id": 6,
+      "kode": "K-06",
+      "nama": "Ayam Celup",
+      "harga": 18750,
+      "is_ready": true,
+      "gambar": "Ayam Krispy Saus Celup.png",
+      "pilihan": ["BBQ","keju","Blakpepper","BBQ Spicy","Hot Spicy","Teriyaki","Extra Pedas","Hot Lava"]
+      
+    }
+  ]
+}
