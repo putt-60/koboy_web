@@ -4,16 +4,24 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import "../style/PopUpC.css";
 
+import { Navigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
+
 const PopupCheckout = ({ show, close, onConfirm }) => {
   const [penerima, setPenerima] = useState("");
   const [alamat, setAlamat] = useState("");
 
+  const navigate = useNavigate();
+
+
   const handleSubmit = () => {
     if (!penerima.trim() || !alamat.trim()) {
       alert("Mohon isi semua data!");
+      
       return;
     }
-
+    navigate('/history')
     onConfirm({ penerima, alamat });
   };
 
