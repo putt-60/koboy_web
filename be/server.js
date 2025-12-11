@@ -27,4 +27,4 @@ app.listen(3000, () => {
 });
 
 
-// Hello Abbys
+/kill @e[type = tnt_minecart], execute summon tnt ~ ~^4 ~;
