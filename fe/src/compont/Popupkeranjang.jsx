@@ -3,17 +3,24 @@ import { Modal, Button, Form } from "react-bootstrap";
 
 const PopupKeranjang = ({ data, close, save }) => {
   const [jumlah, setJumlah] = useState(data.jumlah);
-  const [variasi, setVariasi] = useState(data.variasi || "");
+  const [variasi, setVariasi] = useState(data.pilihan || "");
   const [note, setNote] = useState(data.note || "");
 
   const simpanPerubahan = () => {
     save({
       ...data,
       jumlah,
-      variasi,
+      pilihan: variasi,
       note,
     });
   };
+
+  // Jika backend menggunakan string "BBQ,Keju,..." → ubah ke array
+  const variasiList = data.opsi
+    ? Array.isArray(data.opsi)
+      ? data.opsi
+      : data.opsi.split(",")
+    : [];
 
   return (
     <Modal show onHide={close} centered>
@@ -22,9 +29,10 @@ const PopupKeranjang = ({ data, close, save }) => {
       </Modal.Header>
 
       <Modal.Body>
+        {/* Gambar & info produk */}
         <div className="d-flex">
           <img
-            src={`/assets/${data.category?.nama?.toLowerCase()}/${data.gambar}`}
+            src={`/assets/makanan/${encodeURIComponent(data.gambar)}`}
             alt={data.nama}
             style={{ width: 120, height: 120, borderRadius: 10 }}
           />
@@ -35,11 +43,11 @@ const PopupKeranjang = ({ data, close, save }) => {
         </div>
 
         {/* Variasi */}
-        {data.opsi && (
+        {variasiList.length > 0 && (
           <div className="mt-3">
             <p className="fw-bold mb-1">Variasi</p>
             <div className="d-flex flex-wrap gap-2">
-              {data.opsi.map((opsi, idx) => (
+              {variasiList.map((opsi, idx) => (
                 <Button
                   key={idx}
                   variant={variasi === opsi ? "primary" : "outline-primary"}
@@ -53,7 +61,7 @@ const PopupKeranjang = ({ data, close, save }) => {
           </div>
         )}
 
-        {/* Quantity */}
+        {/* Jumlah */}
         <div className="mt-3">
           <p className="fw-bold mb-1">Jumlah</p>
           <div className="d-flex align-items-center gap-2">
