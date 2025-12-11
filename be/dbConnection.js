@@ -3,8 +3,10 @@ const db = mysql.createPool({
     host: 'localhost',
     user: 'root',
     password: '',
-    database: 'koboy_database',
-    // port: ''
+    database: 'koboy',
+    port: '3307'
 })
 
 module.exports = db
+
+// kanjut
